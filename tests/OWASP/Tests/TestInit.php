@@ -20,14 +20,13 @@ $classLoader = new \Doctrine\Common\ClassLoader('ValidatorAnnotations',LIB_PATH.
 $classLoader->register();
 
 // register silently failing autoloader
-spl_autoload_register(function($class)
-{
-    if (0 === strpos($class, 'OWASP\Tests\\')) {
-        $path = LIB_PATH . '/' . strtr($class, '\\', '/').'.php';
-        if (file_exists($path) && is_readable($path)) {
-            require_once $path;
+spl_autoload_register(function($class) {
+  if (0 === strpos($class, 'OWASP\Tests\\')) {
+    $path = LIB_PATH . '/' . strtr($class, '\\', '/').'.php';
+    if (file_exists($path) && is_readable($path)) {
+      require_once $path;
 
-            return true;
-        }
+      return true;
     }
+  }
 });

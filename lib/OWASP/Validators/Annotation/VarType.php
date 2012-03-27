@@ -8,5 +8,5 @@ use Doctrine\Common\Annotations as Doctrine;
  * @Target("PROPERTY")
  */
 class VarType extends Doctrine\Annotation {
-    public $type;
+  public $type;
 }

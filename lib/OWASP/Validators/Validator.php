@@ -28,85 +28,81 @@ use OWASP\Validators\Validator as Validator;
  * Validator class
  *
  * @author  Bubba Hines <bubba@hines57.com>
- * 
+ *
  */
-class Validator
-{
-	private $value;
-	
-	private $reader;
-    
-	public function Validate($object){
-		$reader = $this->reader;
-		$class = new \ReflectionClass(get_class($object));
-		//print_r($reader->getClassAnnotations($class));
-		
-		$props = $class->getProperties();
-		foreach ($props as $prop){
-			$anotations = $reader->getPropertyAnnotations($prop);
-			foreach ($anotations as $anot){
-				if (get_class($anot) == 'OWASP\Validators\Annotation\VarType'){
-					return Validator\VarType::validate($object->{$prop->name}, $anot->type);
-				}
-			}
-		}
-		
-		$methods = $class->getMethods();
-		foreach ($methods as $method){
-			//print_r($reader->getMethodAnnotations($method));
-		}
-	}
-    
-    /**
-	 * @return the $value
-	 */
-	public function getValue() {
-		return $this->value;
-	}
+class Validator {
+  private $value;
 
-	/**
-	 * @param string $value
-	 */
-	public function setValue($value) {
-		$this->value = $value;
-	}
+  private $reader;
 
-	/**
-     * Constructor
-     *
-     * @param array $data Key-value for properties to be defined in this class
-     */
-    public final function __construct(array $data)
-    {
-        foreach ($data as $key => $value) {
-            $this->$key = $value;
+  public function Validate($object) {
+    $reader = $this->reader;
+    $class = new \ReflectionClass(get_class($object));
+    //print_r($reader->getClassAnnotations($class));
+
+    $props = $class->getProperties();
+    foreach ($props as $prop) {
+      $anotations = $reader->getPropertyAnnotations($prop);
+      foreach ($anotations as $anot) {
+        if (get_class($anot) == 'OWASP\Validators\Annotation\VarType'){
+          return Validator\VarType::validate($object->{$prop->name}, $anot->type);
         }
-        AnnotationRegistry::registerFile(__DIR__ . '/Annotation/VarType.php');
-        $this->reader = new AnnotationReader();
+      }
     }
 
-    /**
-     * Error handler for unknown property accessor in Validator class.
-     *
-     * @param string $name Unknown property name
-     */
-    public function __get($name)
-    {
-        throw new \BadMethodCallException(
-            sprintf("Unknown property '%s' on validator '%s'.", $name, get_class($this))
-        );
+    $methods = $class->getMethods();
+    foreach ($methods as $method) {
+      //print_r($reader->getMethodAnnotations($method));
     }
+  }
 
-    /**
-     * Error handler for unknown property mutator in Validator class.
-     *
-     * @param string $name Unkown property name
-     * @param mixed $value Property value
-     */
-    public function __set($name, $value)
-    {
-        throw new \BadMethodCallException(
-            sprintf("Unknown property '%s' on validator '%s'.", $name, get_class($this))
-        );
+  /**
+   * @return the $value
+   */
+  public function getValue() {
+    return $this->value;
+  }
+
+  /**
+   * @param string $value
+   */
+  public function setValue($value) {
+    $this->value = $value;
+  }
+
+  /**
+   * Constructor
+   *
+   * @param array $data Key-value for properties to be defined in this class
+   */
+  public final function __construct(array $data) {
+    foreach ($data as $key => $value) {
+      $this->$key = $value;
     }
+    AnnotationRegistry::registerFile(__DIR__ . '/Annotation/VarType.php');
+    $this->reader = new AnnotationReader();
+  }
+
+  /**
+   * Error handler for unknown property accessor in Validator class.
+   *
+   * @param string $name Unknown property name
+   */
+  public function __get($name) {
+    throw new \BadMethodCallException(
+      sprintf("Unknown property '%s' on validator '%s'.", $name, get_class($this))
+    );
+  }
+
+  /**
+   * Error handler for unknown property mutator in Validator class.
+   *
+   * @param string $name Unkown property name
+   * @param mixed $value Property value
+   */
+  public function __set($name, $value) {
+    throw new \BadMethodCallException(
+      sprintf("Unknown property '%s' on validator '%s'.", $name, get_class($this))
+    );
+  }
 }

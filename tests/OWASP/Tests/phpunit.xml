@@ -1,16 +1,16 @@
 <phpunit bootstrap="./TestInit.php" colors="false">
-    <testsuite name="My Tests">
-        <directory>./Validators</directory>
-    </testsuite>
+  <testsuite name="My Tests">
+    <directory>./Validators</directory>
+  </testsuite>
 
-    <filter>
-        <whitelist>
-            <directory suffix=".php">../Validators/</directory>
-        </whitelist>
-    </filter>
+  <filter>
+    <whitelist>
+      <directory suffix=".php">../Validators/</directory>
+    </whitelist>
+  </filter>
 
-    <logging>
-        <log type="coverage-html" target="./log/report" charset="UTF-8" yui="true" hightlight="true" lowupperbound="50" highlowerbound="80" />
-        <log type="testdox-html" target="./log/testdox.html" />
-    </logging>
+  <logging>
+    <log type="coverage-html" target="./log/report" charset="UTF-8" yui="true" hightlight="true" lowupperbound="50" highlowerbound="80" />
+    <log type="testdox-html" target="./log/testdox.html" />
+  </logging>
 </phpunit>
