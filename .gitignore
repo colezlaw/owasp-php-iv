@@ -1,0 +1,6 @@
+.DS_Store
+tests/OWASP/Tests/log
+.buildpath
+.project
+.settings
+*.swp
